@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TNEH GROUP - Bomber API</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, #ff6b6b, #ffd93d, #6bcb77, #4d96ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+        }
+
+        .logo p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1rem;
+            margin-top: 5px;
+        }
+
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 1.5s infinite;
+        }
+
+        .status-dot.online {
+            background: #6bcb77;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .status-text {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .status-stats {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #4d96ff;
+            box-shadow: 0 0 20px rgba(77, 150, 255, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .form-group select option {
+            background: #1a1a2e;
+            color: #fff;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 14px 30px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4d96ff, #6b4dff);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(77, 150, 255, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: #fff;
+            margin-top: 10px;
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .response-area {
+            margin-top: 25px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .response-area pre {
+            color: #a8d8ea;
+            font-size: 0.85rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: 'Fira Code', 'Consolas', monospace;
+        }
+
+        .response-area .empty {
+            color: rgba(255, 255, 255, 0.3);
+            text-align: center;
+            padding: 20px;
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .quick-actions button {
+            flex: 1;
+            min-width: 80px;
+            padding: 10px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quick-actions button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .quick-actions button.active {
+            background: rgba(77, 150, 255, 0.2);
+            border-color: #4d96ff;
+            color: #4d96ff;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.8rem;
+        }
+
+        .footer a {
+            color: rgba(255, 255, 255, 0.4);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: #4d96ff;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-top: 2px solid #4d96ff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .result-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-card .number {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .stat-card .label {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-card.success .number { color: #6bcb77; }
+        .stat-card.failed .number { color: #ff6b6b; }
+        .stat-card.total .number { color: #4d96ff; }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            .logo h1 {
+                font-size: 1.8rem;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .result-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h1>⚡ TNEH GROUP</h1>
+            <p>Bomber API Server — SMS • Call • WhatsApp</p>
+        </div>
+
+        <div class="status-bar">
+            <div>
+                <span class="status-dot online"></span>
+                <span class="status-text" id="serverStatus">Connected</span>
+            </div>
+            <div class="status-stats" id="apiStats">Loading...</div>
+        </div>
+
+        <form id="bombForm">
+            <div class="form-group">
+                <label>📱 Phone Number</label>
+                <input type="text" id="phoneInput" placeholder="Enter 10-digit number (e.g., 9876543210)" maxlength="10" required />
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>📊 Count</label>
+                    <input type="number" id="countInput" placeholder="Max APIs to use" value="0" min="0" max="200" />
+                </div>
+                <div class="form-group">
+                    <label>📨 Type</label>
+                    <select id="typeSelect">
+                        <option value="sms">📱 SMS</option>
+                        <option value="call">📞 Call</option>
+                        <option value="whatsapp">💬 WhatsApp</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" id="sendBtn">
+                🚀 Send Bomb
+            </button>
+            <button type="button" class="btn btn-danger" id="stopBtn">
+                ⏹ Stop All
+            </button>
+        </form>
+
+        <div class="quick-actions">
+            <button data-count="10">10x</button>
+            <button data-count="20">20x</button>
+            <button data-count="50">50x</button>
+            <button data-count="100">100x</button>
+            <button data-count="0">All</button>
+            <button data-type="sms">📱 SMS</button>
+            <button data-type="call">📞 Call</button>
+            <button data-type="whatsapp">💬 WA</button>
+        </div>
+
+        <div class="response-area" id="responseArea">
+            <div class="empty">Ready to send... 🚀</div>
+        </div>
+
+        <div class="footer">
+            <p>TNEH GROUP &copy; 2024 — <a href="/api/list" target="_blank">API List</a> · <a href="/api/stats" target="_blank">Stats</a> · <a href="/api/health" target="_blank">Health</a></p>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = window.location.origin;
+        const responseArea = document.getElementById('responseArea');
+        const phoneInput = document.getElementById('phoneInput');
+        const countInput = document.getElementById('countInput');
+        const typeSelect = document.getElementById('typeSelect');
+        const sendBtn = document.getElementById('sendBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const statusText = document.getElementById('serverStatus');
+
+        // Load API stats
+        async function loadStats() {
+            try {
+                const res = await fetch(`${API_BASE}/api/stats`);
+                const data = await res.json();
+                if (data.status === 'success') {
+                    document.getElementById('apiStats').textContent = 
+                        `📊 ${data.apis.total} APIs (📱${data.apis.sms} 📞${data.apis.call} 💬${data.apis.whatsapp})`;
+                }
+            } catch (e) {
+                document.getElementById('apiStats').textContent = '⚠️ Offline';
+                statusText.textContent = 'Disconnected';
+            }
+        }
+
+        loadStats();
+
+        // Quick action buttons
+        document.querySelectorAll('.quick-actions button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (this.dataset.count) {
+                    countInput.value = this.dataset.count;
+                    document.querySelectorAll('.quick-actions button').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                }
+                if (this.dataset.type) {
+                    typeSelect.value = this.dataset.type;
+                }
+            });
+        });
+
+        // Stop all
+        stopBtn.addEventListener('click', async function() {
+            try {
+                const res = await fetch(`${API_BASE}/api/send?stop=true`);
+                const data = await res.json();
+                showResponse(data);
+                showToast('Stopped all requests', 'warning');
+            } catch (e) {
+                showToast('Error stopping requests', 'error');
+            }
+        });
+
+        // Form submit
+        document.getElementById('bombForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const phone = phoneInput.value.trim();
+            const count = countInput.value || 0;
+            const type = typeSelect.value;
+
+            if (!phone || phone.length !== 10 || !/^\d{10}$/.test(phone)) {
+                showToast('Please enter a valid 10-digit phone number', 'error');
+                return;
+            }
+
+            sendBtn.disabled = true;
+            sendBtn.innerHTML = '<span class="loading"></span> Sending...';
+
+            const url = `${API_BASE}/api/send?num=${phone}&count=${count}&type=${type}`;
+
+            try {
+                const res = await fetch(url);
+                const data = await res.json();
+                showResponse(data);
+                showToast(`✅ Sent ${data.success || 0}/${data.total || 0} requests`, 'success');
+            } catch (error) {
+                showToast('❌ Error sending request', 'error');
+                showResponse({ error: error.message });
+            } finally {
+                sendBtn.disabled = false;
+                sendBtn.innerHTML = '🚀 Send Bomb';
+            }
+        });
+
+        function showResponse(data) {
+            responseArea.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+            responseArea.scrollTop = 0;
+        }
+
+        function showToast(message, type = 'info') {
+            const existing = document.querySelector('.toast');
+            if (existing) existing.remove();
+
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                padding: 12px 24px;
+                border-radius: 12px;
+                background: ${type === 'success' ? '#2d6a4f' : type === 'error' ? '#9b2226' : '#1a1a2e'};
+                color: #fff;
+                font-weight: 500;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+                z-index: 9999;
+                animation: slideUp 0.3s ease;
+                border: 1px solid rgba(255,255,255,0.1);
+                max-width: 90%;
+                text-align: center;
+            `;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.3s';
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
+        }
+
+        // Add slideUp animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideUp {
+                from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+                to { opacity: 1; transform: translateX(-50%) translateY(0); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Enter key to submit
+        phoneInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                document.getElementById('bombForm').dispatchEvent(new Event('submit'));
+            }
+        });
+
+        // Auto-clear response after some time
+        setInterval(() => {
+            if (responseArea.querySelector('pre') && 
+                !responseArea.querySelector('.empty') && 
+                Date.now() - (window._lastResponseTime || 0) > 60000) {
+                // Keep response, don't auto-clear
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
