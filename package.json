@@ -1,23 +1,11 @@
 {
-  "name": "tneh-group-backend",
+  "name": "tneh-indian-sms-api",
   "version": "1.0.0",
-  "description": "TNEH GROUP - SMS/Call/WhatsApp Bomber API Server",
-  "main": "api/index.js",
-  "scripts": {
-    "start": "node api/index.js",
-    "dev": "nodemon api/index.js"
-  },
-  "keywords": ["bomber", "sms", "call", "whatsapp", "tneh"],
-  "author": "TNEH GROUP",
-  "license": "MIT",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
   "dependencies": {
-    "express": "^4.18.2",
-    "axios": "^1.6.2",
-    "cors": "^2.8.5",
-    "helmet": "^7.1.0",
-    "express-rate-limit": "^7.1.5"
+    "express": "^4.19.2",
+    "cors": "^2.8.5"
   },
-  "devDependencies": {
-    "nodemon": "^3.0.2"
-  }
+  "engines": { "node": "20.x" }
 }
